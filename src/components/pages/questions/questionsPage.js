@@ -42,7 +42,6 @@ class QuestionsPage extends React.PureComponent {
                     this.setState({userChoice: question.alternativeD});
                     break;
             }
-            console.log(this.userChoice)
         }
     }
 
@@ -73,7 +72,7 @@ class QuestionsPage extends React.PureComponent {
         let question = this.props.globalState.questions[this.state.qid];
         return <div className={"container"}>
             <h2>Placeholder for side med spørsmål</h2>
-            <span>{this.question}</span>
+            <span>{question.question}</span>
                 <table>
                 <tbody>
                 <tr>
