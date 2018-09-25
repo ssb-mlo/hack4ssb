@@ -44,7 +44,7 @@ class QuestionsPage extends React.PureComponent {
 
 
     render() {
-        return <div>
+        return <div className={"container"}>
             <h2>Placeholder for side med spørsmål</h2>
 
             <span>{this.question}</span>
