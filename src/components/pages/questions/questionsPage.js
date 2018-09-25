@@ -60,10 +60,11 @@ class QuestionsPage extends React.PureComponent {
 
 
     render() {
+
         if (this.gotQuestions()) {
 
         let question = this.props.globalState.questions[this.state.qid];
-        return <div>
+        return <div className={"container"}>
             <h2>Placeholder for side med spørsmål</h2>
             <span>{this.question}</span>
                 <table>
