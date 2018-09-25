@@ -1,4 +1,5 @@
 import React from 'react';
+import {withGlobalState} from 'react-globally'
 
 class QuestionsPage extends React.PureComponent {
 
@@ -6,32 +7,39 @@ class QuestionsPage extends React.PureComponent {
         super();
 
         this.state = {
-            userChoice: null
+            userChoice: null,
+            qid :0
         };
-        //Placeholder stuff
-        this.question = 'Spørsmål tekst';
-        this.alternativeA = 'Svar A';
-        this.alternativeB = 'Svar B';
-        this.alternativeC = 'Svar C';
-        this.alternativeD = 'Svar D';
-        this.answer = this.alternativeA;
     }
 
+    componentWillMount() {
+        if (!this.gotQuestions()) {
+
+        }
+    }
+
+    gotQuestions() {
+        return this.props.globalState.questions.length > 0;
+    }
+    totalQuestions() {
+        return this.props.globalState.questions.length;
+    }
 
     onButtonClicked(args) {
         if (this.state.userChoice == null) {
+            let question = this.props.globalState.questions[this.state.qid];
             switch (args.target.id) {
                 case 'Button A':
-                    this.setState({userChoice: this.alternativeA});
+                    this.setState({userChoice: question.alternativeA});
                     break;
                 case 'Button B':
-                    this.setState({userChoice: this.alternativeB});
+                    this.setState({userChoice: question.alternativeB});
                     break;
                 case 'Button C':
-                    this.setState({userChoice: this.alternativeC});
+                    this.setState({userChoice: question.alternativeC});
                     break;
                 case 'Button D':
-                    this.setState({userChoice: this.alternativeD});
+                    this.setState({userChoice: question.alternativeD});
                     break;
             }
             console.log(this.userChoice)
@@ -39,35 +47,53 @@ class QuestionsPage extends React.PureComponent {
     }
 
     onNextButtonClicked() {
-        alert("TODO gå til neste spm");
+        this.saveAnswer();
+        if (this.state.qid + 1 < this.totalQuestions()) {
+        this.setState(prevState=>({qid :prevState.qid +1, userChoice: null}));
+        }else {
+            this.props.history.push("/results")
+        }
+    }
+    saveAnswer() {
+        //TODO update global state
     }
 
 
     render() {
+        if (this.gotQuestions()) {
+
+        let question = this.props.globalState.questions[this.state.qid];
         return <div>
             <h2>Placeholder for side med spørsmål</h2>
-
             <span>{this.question}</span>
                 <table>
                 <tbody>
                 <tr>
-                    <td><button id='Button A' onClick={this.onButtonClicked.bind(this)}>{this.alternativeA}</button></td>
-                    <td><button id='Button B' onClick={this.onButtonClicked.bind(this)}>{this.alternativeB}</button></td>
+                    <td><button id='Button A' onClick={this.onButtonClicked.bind(this)}>{question.alternativeA}</button></td>
+                    <td><button id='Button B' onClick={this.onButtonClicked.bind(this)}>{question.alternativeB}</button></td>
                 </tr>
                 <tr>
-                    <td><button id='Button C' onClick={this.onButtonClicked.bind(this)}>{this.alternativeC}</button></td>
-                    <td><button id='Button D' onClick={this.onButtonClicked.bind(this)}>{this.alternativeD}</button></td>
+                    <td><button id='Button C' onClick={this.onButtonClicked.bind(this)}>{question.alternativeC}</button></td>
+                    <td><button id='Button D' onClick={this.onButtonClicked.bind(this)}>{question.alternativeD}</button></td>
                 </tr>
                 </tbody>
                 </table>
             {this.renderAnswer()}
         </div>
+
+        } else {
+            console.log("Ingen spørsmål funnet")
+            this.props.history.push("/")
+            return <div>Ingen spørsmål funnet</div>
+        }
+
     }
 
     renderAnswer() {
+        let question = this.props.globalState.questions[this.state.qid];
         if (this.state.userChoice == null){
             return ""
-        }else if (this.state.userChoice === this.answer) {
+        }else if (this.state.userChoice === question.correctAnswer) {
             return(
                 <div>
                 <span>Du svarete Riktig</span>
@@ -85,4 +111,4 @@ class QuestionsPage extends React.PureComponent {
     }
 }
 
-export default QuestionsPage;
+export default withGlobalState(QuestionsPage);
