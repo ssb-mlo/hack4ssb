@@ -55,7 +55,14 @@ class QuestionsPage extends React.PureComponent {
         }
     }
     saveAnswer() {
-        //TODO update global state
+        //Den sikkert mer riktige aprochen
+        // this.setState({
+        //     items: update(this.state.items, {1: {name: {$set: 'updated field name'}}})
+        // })
+
+        //Den late hackishe løsningen for update av ting i en array
+        this.props.globalState.questions[this.state.qid].userAnswer = this.state.userChoice;
+        this.forceUpdate()
     }
 
 

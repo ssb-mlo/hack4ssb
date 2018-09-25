@@ -7,9 +7,24 @@ class ResultsPage extends React.Component {
 
 
     render() {
-        return <div>
-            <span>Her Skal resultatene vises</span>
-        </div>
+        const results =this.props.globalState.questions;
+        return (
+            <div>
+                {
+                    results.map(function (data, it) {
+                        return (
+                            <div>
+                                <div>Spørsmål {it}</div>
+                                <div>{data.question}</div>
+                                <div>Riktig svar: {data.correctAnswer}</div>
+                                <div>Du svarte: {data.userAnswer}</div>
+                                <br/>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
     }
 
 
