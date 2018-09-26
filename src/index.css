@@ -3,3 +3,110 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.top {
+  background: url(/skyline2.png);
+  background-repeat: no-repeat;
+  height: 180px;
+  background-position: center center;
+  background-size: cover;
+  background-color: #464646;
+  border-bottom: 4px grey solid;
+}
+
+.top span {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 30px;
+}
+
+.container {
+  background-color: lightblue;
+  height:600px;
+  padding: 0;
+}
+
+.content {
+  width: 100%;
+}
+
+.icon {
+  width: 20%;
+  float:right;
+}
+
+.icon img {
+  width: 150px;
+  max-height: 150px;
+}
+
+.questions {
+  width: 80%;
+  float: left;
+  padding-top: 20px;
+  padding-left:10px;
+}
+
+.questions span{
+  font-size: 20px;
+}
+
+.alternative-answer {
+  width: 100%;
+  padding-top: 30px;
+  overflow: hidden;
+  padding-left:10px;
+}
+
+.alternative-button {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.answer {
+  padding-top: 30px;
+  width: 100%;
+  overflow: hidden;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.answer .alert {
+  width: 300px;
+}
+
+.answer-button {
+  width: 200px;
+}
+
+.geo-sok label {
+  margin-top: 20px;
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+.geo-sok input {
+  width: 200px;
+  height: auto;
+  font-size: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.geo-sok button{
+  margin-top: 20px;
+  width: 200px;
+  height: 75px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.button-region{
+  background-color: grey;
+
+}
+
+

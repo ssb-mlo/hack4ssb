@@ -71,21 +71,34 @@ class QuestionsPage extends React.PureComponent {
 
         let question = this.props.globalState.questions[this.state.qid];
         return <div className={"container"}>
-            <h2>Placeholder for side med spørsmål</h2>
-            <span>{question.question}</span>
-                <table>
-                <tbody>
-                <tr>
-                    <td><button id='Button A' onClick={this.onButtonClicked.bind(this)}>{question.alternativeA}</button></td>
-                    <td><button id='Button B' onClick={this.onButtonClicked.bind(this)}>{question.alternativeB}</button></td>
-                </tr>
-                <tr>
-                    <td><button id='Button C' onClick={this.onButtonClicked.bind(this)}>{question.alternativeC}</button></td>
-                    <td><button id='Button D' onClick={this.onButtonClicked.bind(this)}>{question.alternativeD}</button></td>
-                </tr>
-                </tbody>
-                </table>
-            {this.renderAnswer()}
+            <div className="top">
+                <span>{question.region}</span>
+            </div>
+
+            <div className="content">
+                <div className={"questions"}>
+                    <h2>Spørsmål {this.state.qid + 1}</h2>
+
+                    <span>{question.question}?</span>
+                </div>
+                {/*<div className={"icon"}>*/}
+                    {/*<img src={question.icon} alt="" className="bilde"></img>*/}
+                {/*</div>*/}
+                <div className="alternative-answer">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><button id='Button A' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeA}</button></td>
+                            <td><button id='Button B' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeB}</button></td>
+                            <td><button id='Button C' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeC}</button></td>
+                            <td><button id='Button D' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeD}</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {this.renderAnswer()}
+                </div>
+            </div>
+
         </div>
 
         } else {
@@ -102,16 +115,17 @@ class QuestionsPage extends React.PureComponent {
             return ""
         }else if (this.state.userChoice === question.correctAnswer) {
             return(
-                <div>
-                <span>Du svarete Riktig</span>
-                <button onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
+                <div className={"answer"}>
+                    <div className="alert alert-success" role="alert">Du svarete Riktig</div>
+                    <button type="button" className="btn btn-primary btn-lg answer-button"  onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
             </div>
             )
         }else {
             return (
-            <div>
-                <div>Du svarete feil</div>
-                <button onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
+            <div className={"answer"}>
+                <div className="alert alert-danger" role="alert">Du svarte desverre feil</div>
+                <button type="button" className="btn btn-primary btn-lg answer-button"  onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
+
             </div>
             )
         }

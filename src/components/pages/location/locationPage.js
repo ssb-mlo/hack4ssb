@@ -21,6 +21,13 @@ class LocationPage extends React.Component {
                 console.log("csv lastet")
                 this.setState({ postalCode:null, postalCodes: Papa.parse(data)})
             });
+
+        fetch('data/data-kommnr.txt')
+            .then(response => response.text())
+            .then(dataKommune => {
+                console.log("csv kommuner lastet")
+                this.setState({ kommuneCode:null, kommuneCodes: Papa.parse(dataKommune)})
+            });
     }
 
     onButtonClicked() {
@@ -28,38 +35,52 @@ class LocationPage extends React.Component {
         console.log(this.state.postalCodes.data)
         var kommuneNavn;
         var kommuneNr;
+
+        if(this.state.postalCode === null){
+            kommuneNavn = "OSLO";
+            kommuneNr = "0301";
+        }
         let postalCode = this.state.postalCode;
         this.state.postalCodes.data.forEach(function(postNummerData) {
             if(postNummerData[0] === postalCode) {
-                kommuneNavn = postNummerData[1];
+                kommuneNavn = postNummerData[3];
                 kommuneNr = postNummerData[2];
             }
-
         });
+
+        var inntekt = this.getValueByPosition(2, kommuneNr);
+        var avfall = this.getValueByPosition(3, kommuneNr);
 
 
         //TODO generer spørsmål med data fra ssb
         this.props.setGlobalState(prevGlobalState => ({
+
                 questions: [
                     {
                         //Placeholder stuff
-                        question: 'Spørsmål tekst for spørsmål 1 ('+kommuneNavn+', '+kommuneNr+')',
-                        alternativeA: 'Svar A',
+                        question: 'Hva tror du er er husholdningers gjennomsnittlig inntekt i din kommune',
+                        alternativeA: inntekt,
                         alternativeB: 'Svar B',
                         alternativeC: 'Svar C',
                         alternativeD: 'Svar D',
-                        correctAnswer: 'Svar A',
-                        userAnswer: null
+                        correctAnswer: inntekt,
+                        userAnswer: null,
+                        region: kommuneNavn,
+                        regionnr: kommuneNr,
+                        icon: 'inntekt.png'
                     },
                     {
                         //Placeholder stuff
-                        question: 'Spørsmål tekst for spørsmål 2 ('+kommuneNavn+', '+kommuneNr+')',
+                        question: 'Hvor mange tonn husholdningsavfall ble hentet i fjor',
                         alternativeA: 'Svar Z',
                         alternativeB: 'Svar F',
-                        alternativeC: 'Svar Q',
+                        alternativeC: avfall,
                         alternativeD: 'Svar H',
-                        correctAnswer: 'Svar H',
-                        userAnswer: null
+                        correctAnswer: avfall,
+                        userAnswer: null,
+                        region: kommuneNavn,
+                        regionnr: kommuneNr,
+                        icon: 'avfall.png'
                     }
                 ]
             })
@@ -79,14 +100,28 @@ class LocationPage extends React.Component {
 
     }
 
-    render() {
-        return <div>
-            <span>Skriv in postnummer</span>
-            <input type="text" name="name" maxLength={4} pattern="[0-9]*"  onChange={this.updateInputValue.bind(this)}/>
-            <button onClick={this.onButtonClicked.bind(this)}>gå videre</button>
-        </div>
+    getValueByPosition(position, regionNr){
+        var kommuneVerdi;
+        this.state.kommuneCodes.data.forEach(function(kommuneNummerData) {
+            if(kommuneNummerData[0] === regionNr) {
+                kommuneVerdi = kommuneNummerData[position];
+            }
+        });
+
+        return kommuneVerdi;
+
     }
 
+    render() {
+        return <div className={"container"}>
+            <div className="top"/>
+                <div className="geo-sok">
+                    <label for="region-input">Hvor bor du?</label>
+                    <input type="text" className="form-control" id="region-input" placeholder="Postnr" onChange={this.updateInputValue.bind(this)}></input>
+                    <button type="button" className="btn btn-lg btn-primary"  onClick={this.onButtonClicked.bind(this)}>Kjør Quiz</button>
+                </div>
+            </div>
+    }
 
 }
 
