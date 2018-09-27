@@ -18,21 +18,18 @@ class LocationPage extends React.Component {
         fetch('data/postnr.txt')
             .then(response => response.text())
             .then(data => {
-                console.log("csv lastet")
                 this.setState({ postalCode:null, postalCodes: Papa.parse(data)})
             });
 
         fetch('data/data-kommnr.txt')
             .then(response => response.text())
             .then(dataKommune => {
-                console.log("csv kommuner lastet")
                 this.setState({ kommuneCode:null, kommuneCodes: Papa.parse(dataKommune)})
             });
     }
 
     onButtonClicked() {
 
-        console.log(this.state.postalCodes.data)
         var kommuneNavn;
         var kommuneNr;
 
@@ -45,11 +42,17 @@ class LocationPage extends React.Component {
             if(postNummerData[0] === postalCode) {
                 kommuneNavn = postNummerData[3];
                 kommuneNr = postNummerData[2];
+            }else{
+                kommuneNavn = "OSLO";
+                kommuneNr = "0301";
             }
         });
 
-        var inntekt = this.getValueByPosition(2, kommuneNr);
-        var avfall = this.getValueByPosition(3, kommuneNr);
+        var question1 = this.getValueByPosition(2, kommuneNr);
+        var question2 = this.getValueByPosition(3, kommuneNr);
+        var question3 = this.getValueByPosition(4, kommuneNr);
+        var question4 = this.getValueByPosition(5, kommuneNr);
+        var question5 = this.getValueByPosition(6, kommuneNr);
 
 
         //TODO generer spørsmål med data fra ssb
@@ -58,29 +61,55 @@ class LocationPage extends React.Component {
                 questions: [
                     {
                         //Placeholder stuff
-                        question: 'Hva tror du er er husholdningers gjennomsnittlig inntekt i din kommune',
-                        alternativeA: inntekt,
-                        alternativeB: 'Svar B',
-                        alternativeC: 'Svar C',
-                        alternativeD: 'Svar D',
-                        correctAnswer: inntekt,
+                        question: 'Hva tror er husholdningers gjennomsnittlig inntekt i din kommune?',
+                        correctAnswer: question1,
                         userAnswer: null,
                         region: kommuneNavn,
                         regionnr: kommuneNr,
-                        icon: 'inntekt.png'
+                        enhet: ' kr',
+                        alternativeViewer: 'buttonNumber'
                     },
                     {
                         //Placeholder stuff
-                        question: 'Hvor mange tonn husholdningsavfall ble hentet i fjor',
-                        alternativeA: 'Svar Z',
-                        alternativeB: 'Svar F',
-                        alternativeC: avfall,
-                        alternativeD: 'Svar H',
-                        correctAnswer: avfall,
+                        question: 'Hvor stor arbeidsledighet er det i din kommune?',
+                        correctAnswer: question2,
                         userAnswer: null,
                         region: kommuneNavn,
                         regionnr: kommuneNr,
-                        icon: 'avfall.png'
+                        enhet: '%',
+                        alternativeViewer: 'buttonNumber'
+                    }
+                    ,
+                    {
+                        //Placeholder stuff
+                        question: 'Hvor mange trafikkovertredelser ble anmeldt i din kommune det siste året?',
+                        correctAnswer: question3,
+                        userAnswer: null,
+                        region: kommuneNavn,
+                        regionnr: kommuneNr,
+                        enhet: ' stk',
+                        alternativeViewer: 'buttonNumber'
+                    },
+                    {
+                        //Placeholder stuff
+                        question: 'Hvor mange prosent av befolkningen mosjonerer aldri i ditt fylke?',
+                        correctAnswer: question4,
+                        userAnswer: null,
+                        region: kommuneNavn,
+                        regionnr: kommuneNr,
+                        enhet: '%',
+                        alternativeViewer: 'buttonNumber'
+                    }
+                    ,
+                    {
+                        //Placeholder stuff
+                        question: 'Hvor mange prosent spiser vanligvis grønnsaker eller salat daglig  i ditt fylke?',
+                        correctAnswer: question5,
+                        userAnswer: null,
+                        region: kommuneNavn,
+                        regionnr: kommuneNr,
+                        enhet: '%',
+                        alternativeViewer: 'buttonNumber'
                     }
                 ]
             })
@@ -88,12 +117,8 @@ class LocationPage extends React.Component {
         this.props.history.push("/questions")
     }
 
-
-
     componentWillMount() {
         // this.readTextFile("data/postnr.txt");
-
-
     }
     updateInputValue(evt){
         this.setState({postalCode: evt.target.value});
@@ -116,7 +141,7 @@ class LocationPage extends React.Component {
         return <div className={"container"}>
             <div className="top"/>
                 <div className="geo-sok">
-                    <label for="region-input">Hvor bor du?</label>
+                    <label htmlFor="region-input">Hvor bor du?</label>
                     <input type="text" className="form-control" id="region-input" placeholder="Postnr" onChange={this.updateInputValue.bind(this)}></input>
                     <button type="button" className="btn btn-lg btn-primary"  onClick={this.onButtonClicked.bind(this)}>Kjør Quiz</button>
                 </div>

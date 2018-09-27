@@ -28,19 +28,10 @@ class QuestionsPage extends React.PureComponent {
     onButtonClicked(args) {
         if (this.state.userChoice == null) {
             let question = this.props.globalState.questions[this.state.qid];
-            switch (args.target.id) {
-                case 'Button A':
-                    this.setState({userChoice: question.alternativeA});
-                    break;
-                case 'Button B':
-                    this.setState({userChoice: question.alternativeB});
-                    break;
-                case 'Button C':
-                    this.setState({userChoice: question.alternativeC});
-                    break;
-                case 'Button D':
-                    this.setState({userChoice: question.alternativeD});
-                    break;
+            if(args.target.id === 'correctAnswer'){
+                this.setState({userChoice: question.correctAnswer});
+            }else{
+                this.setState({userChoice: "Wrong"});
             }
         }
     }
@@ -53,6 +44,7 @@ class QuestionsPage extends React.PureComponent {
             this.props.history.push("/results")
         }
     }
+
     saveAnswer() {
         //Den sikkert mer riktige aprochen
         // this.setState({
@@ -79,22 +71,11 @@ class QuestionsPage extends React.PureComponent {
                 <div className={"questions"}>
                     <h2>Spørsmål {this.state.qid + 1}</h2>
 
-                    <span>{question.question}?</span>
+                    <span>{question.question}</span>
                 </div>
-                {/*<div className={"icon"}>*/}
-                    {/*<img src={question.icon} alt="" className="bilde"></img>*/}
-                {/*</div>*/}
+
                 <div className="alternative-answer">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td><button id='Button A' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeA}</button></td>
-                            <td><button id='Button B' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeB}</button></td>
-                            <td><button id='Button C' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeC}</button></td>
-                            <td><button id='Button D' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{question.alternativeD}</button></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    {this.renderButtonsNumber( question.correctAnswer, question.enhet )}
                     {this.renderAnswer()}
                 </div>
             </div>
@@ -102,11 +83,28 @@ class QuestionsPage extends React.PureComponent {
         </div>
 
         } else {
-            console.log("Ingen spørsmål funnet")
             this.props.history.push("/")
             return <div>Ingen spørsmål funnet</div>
         }
 
+    }
+
+    renderButtonsNumber(svar, enhet) {
+        var alternativ1 = Number(svar) * 1.2;
+        var alternativ2 = Number(svar) * 0.5;
+        var alternativ3 = Number(svar) * 0.3;
+        var antallDesimal = (svar.split(".").length - 1);
+
+        return <table>
+            <tbody>
+            <tr>
+                <td><button id='correctAnswer' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{svar}{enhet}</button></td>
+                <td><button id='alt_A' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{alternativ1.toFixed(antallDesimal)}{enhet}</button></td>
+                <td><button id='alt_B' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{alternativ2.toFixed(antallDesimal)}{enhet}</button></td>
+                <td><button id='alt_C' type="button" className="btn btn-outline-primary alternative-button" onClick={this.onButtonClicked.bind(this)}>{alternativ3.toFixed(antallDesimal)}{enhet}</button></td>
+            </tr>
+            </tbody>
+        </table>
     }
 
     renderAnswer() {
@@ -123,9 +121,8 @@ class QuestionsPage extends React.PureComponent {
         }else {
             return (
             <div className={"answer"}>
-                <div className="alert alert-danger" role="alert">Du svarte desverre feil</div>
+                <div className="alert alert-danger" role="alert">Du svarte desverre feil, Riktig svar er {question.correctAnswer} {question.enhet}</div>
                 <button type="button" className="btn btn-primary btn-lg answer-button"  onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
-
             </div>
             )
         }

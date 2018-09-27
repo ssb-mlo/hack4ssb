@@ -97,10 +97,6 @@ body {
   overflow: hidden;
 }
 
-.answer .alert {
-  width: 300px;
-}
-
 .answer-button {
   width: 200px;
 }
@@ -109,11 +105,8 @@ body {
   margin-top: 20px;
 }
 
-
-
 .button-region{
   background-color: grey;
-
 }
 
 
