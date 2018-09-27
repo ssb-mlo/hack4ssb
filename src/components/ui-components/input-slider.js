@@ -23,26 +23,26 @@ const handle = (props) => {
 };
 
 class FigureList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedValue: 0,
-            number: 0,
-        };
-        this.props = {
-            number: 1,
-        };
-    }
-
 
     renderFigure() {
 
-        var figures = [];
-        for (let i = 0; i < this.props.number; i++) {
+        let selectedStyle= {
+            fill:'white',
+            strokeWidth:3,
+            stroke:'black'
+        };
+        let unSelectedStyle = {
+            fill:'grey',
+            strokeWidth: 3,
+            stroke: 'black'
+        };
+
+        let figures = [];
+        for (let i = 0; i < this.props.count; i++) {
             figures.push(
                 <g id={'box-' + i} className={'class'}>
-                    <svg width="110" height="110">
-                        <rect width="100" height="100" className={'testBox'}/>
+                    <svg width="55" height="55" style={i > this.props.selected ? selectedStyle : unSelectedStyle}>
+                        <rect width="50" height="50" className={'testBox'}/>
                         Sorry, your browser does not support inline SVG.
                     </svg>
                 </g>
@@ -95,7 +95,7 @@ class SliderComponent extends React.PureComponent {
                     <div>
                         <p>Slider with custom handle</p>
                         <Slider min={sliderMin} max={sliderMax} defaultValue={3} handle={handle} dots={true} onChange={ this.handleChange}/>
-                        <FigureList number={this.state.number}/>
+                        <FigureList selected={this.state.number} count={sliderMax}/>
                     </div>
                 </div>
             </div>
