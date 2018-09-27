@@ -16,6 +16,7 @@ import { Provider } from 'react-globally'
 import LocationPage from './components/pages/location'
 import QuestionsPage from './components/pages/questions'
 import ResultsPage from './components/pages/results'
+import SliderComponent from "./components/ui-components/input-slider";
 
 const initialState = {
     questions: []
@@ -28,6 +29,7 @@ ReactDOM.render(
                 <Route exact path='/' render={props => <LocationPage {...props}/>}/>
                 <Route exact path='/questions' render={props => <QuestionsPage {...props}/>}/>
                 <Route exact path='/results' render={props => <ResultsPage {...props}/>}/>
+                <Route exact path='/slider' render={props => <SliderComponent {...props}/>}/>
             </Switch>
         </Router>
     </Provider>,

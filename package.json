@@ -9,6 +9,8 @@
     "jquery": "^3.3.1",
     "papaparse": "^4.6.0",
     "popper.js": "^1.14.4",
+    "rc-slider": "^8.6.3",
+    "rc-tooltip": "^3.7.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-globally": "^1.1.0",
