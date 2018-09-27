@@ -36,13 +36,21 @@ class FigureList extends React.Component {
 
     renderFigure() {
 
-        return(
-
-            this.figure(this.props.number)
-    )
+        var figures = [];
+        for (let i = 0; i < this.props.number; i++) {
+            figures.push(
+                <div id={'box-' + i} className={'flexbox'}>
+                    <svg width="400" height="110">
+                        <rect width="100" height="100" className={'testBox'}/>
+                        Sorry, your browser does not support inline SVG.
+                    </svg>
+                </div>
+            )
+        }
+        return figures;
     }
 
-    figure(number) {
+  /*  figure(number) {
         return (
             <div id={number} className={'flexbox'}>
                 <svg width="400" height="110">
@@ -52,7 +60,7 @@ class FigureList extends React.Component {
             </div>
         );
 
-    }
+    }*/
 
     render() {
         return (
