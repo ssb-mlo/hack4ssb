@@ -121,7 +121,7 @@ class QuestionsPage extends React.PureComponent {
         }else {
             return (
             <div className={"answer"}>
-                <div className="alert alert-danger" role="alert">Du svarte desverre feil, Riktig svar er {question.correctAnswer} {question.enhet}</div>
+                <div className="alert alert-danger" role="alert">Du svarte dessverre feil, riktig svar er {question.correctAnswer} {question.enhet}</div>
                 <button type="button" className="btn btn-primary btn-lg answer-button"  onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
             </div>
             )

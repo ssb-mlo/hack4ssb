@@ -28,7 +28,7 @@ class ResultsPage extends React.Component {
                                             {
                                                 data.correctAnswer === data.userAnswer
                                                     ? <div className="alert alert-success" role="alert">Du svarte riktig: {data.userAnswer}</div>
-                                                    : <div className="alert alert-danger" role="alert">Feil: Du svarte {data.userAnswer} , Riktig svar: {data.correctAnswer}</div>
+                                                    : <div className="alert alert-danger" role="alert">Du svarte feil, riktig svar: {data.correctAnswer}</div>
                                             }
                                             <br/>
                                         </div>
