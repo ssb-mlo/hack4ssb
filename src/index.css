@@ -22,67 +22,24 @@ body {
 
 .container {
   background-color: lightblue;
-  height:600px;
+  height:2000px;
   padding: 0;
 }
 
 .content {
   width: 100%;
-}
-
-.icon {
-  width: 20%;
-  float:right;
-}
-
-.icon img {
-  width: 150px;
-  max-height: 150px;
-}
-
-.questions {
-  width: 80%;
-  float: left;
-  padding-top: 20px;
-  padding-left:10px;
-}
-
-.questions span{
-  font-size: 20px;
-}
-
-.alternative-answer {
-  width: 100%;
-  padding-top: 30px;
-  overflow: hidden;
-  padding-left:10px;
-}
-
-.alternative-button {
-  width: 100px;
-  margin-right: 5px;
-}
-
-.answer {
-  padding-top: 30px;
-  width: 100%;
-  overflow: hidden;
-  padding-left:10px;
-  padding-right:10px;
-}
-
-.answer .alert {
-  width: 300px;
-}
-
-.answer-button {
-  width: 200px;
+  padding: 20px;
 }
 
 .geo-sok label {
   margin-top: 20px;
+  margin-bottom: 30px;
   margin-left: 10px;
-  font-size: 30px;
+  font-size: 50px;
+  width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .geo-sok input {
@@ -103,6 +60,56 @@ body {
   margin-right: auto;
 
 }
+
+.icon {
+  width: 20%;
+  float:right;
+}
+
+.icon img {
+  width: 150px;
+  max-height: 150px;
+}
+
+.questions {
+  width: 80%;
+  float: left;
+}
+
+.questions span{
+  font-size: 20px;
+}
+
+.alternative-answer {
+  width: 100%;
+  padding-top: 30px;
+  overflow: hidden;
+}
+
+.alternative-button {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.answer {
+  padding-top: 30px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.answer .alert {
+  width: 300px;
+}
+
+.answer-button {
+  width: 200px;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+
 
 .button-region{
   background-color: grey;
