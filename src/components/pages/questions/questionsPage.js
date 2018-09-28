@@ -114,7 +114,7 @@ class QuestionsPage extends React.PureComponent {
         }else if (this.state.userChoice === question.correctAnswer) {
             return(
                 <div className={"answer"}>
-                    <div className="alert alert-success" role="alert">Du svarte Riktig</div>
+                    <div className="alert alert-success" role="alert">Du svarte riktig</div>
                     <button type="button" className="btn btn-primary btn-lg answer-button"  onClick={this.onNextButtonClicked.bind(this)}>Neste spørsmål</button>
             </div>
             )
