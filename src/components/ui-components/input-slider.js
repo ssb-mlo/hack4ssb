@@ -103,7 +103,7 @@ class SliderComponent extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            number: 3,
+            number: 0,
         }
     }
 
@@ -113,15 +113,23 @@ class SliderComponent extends React.PureComponent {
 
     render() {
         let sliderMin = 0;
-        let sliderMax = 5;
+        let sliderMax = 50;
         return (
             <div className={'container'}>
                 <div className={'col'}>
                     <div>
-                        <p>Slider with custom handle</p>
-                        <Slider min={sliderMin} max={sliderMax} defaultValue={3} handle={handle} dots={false}
+                        <h2>Hvor mange gulrøtter tror du naboene dine spiste i august?</h2>
+                        <Slider className={'gulrotSlider mx-auto'}
+                                min={sliderMin}
+                                max={sliderMax}
+                                defaultValue={0}
+                                handle={handle}
+                                dots={false}
                                 onChange={this.handleChange}/>
-                        <FigureList selected={this.state.number} count={sliderMax}/>
+
+                        <div className={'figurListe mx-auto'}><
+                            FigureList selected={this.state.number} count={sliderMax}/>
+                        </div>
                     </div>
                 </div>
             </div>
