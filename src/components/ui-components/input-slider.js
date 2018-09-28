@@ -38,7 +38,7 @@ class FigureList extends React.Component {
         };
 
         let figures = [];
-        for (let i = 0; i < this.props.count; i++) {
+        for (let i = 1; i <= this.props.count; i++) {
             figures.push(
                 <g id={'box-' + i} className={'class'}>
                     {/*                    <svg width="55" height="55" style={i > this.props.selected ? selectedStyle : unSelectedStyle}>
@@ -113,13 +113,13 @@ class SliderComponent extends React.PureComponent {
 
     render() {
         let sliderMin = 0;
-        let sliderMax = 20;
+        let sliderMax = 5;
         return (
             <div className={'container'}>
                 <div className={'col'}>
                     <div>
                         <p>Slider with custom handle</p>
-                        <Slider min={sliderMin} max={sliderMax} defaultValue={3} handle={handle} dots={true}
+                        <Slider min={sliderMin} max={sliderMax} defaultValue={3} handle={handle} dots={false}
                                 onChange={this.handleChange}/>
                         <FigureList selected={this.state.number} count={sliderMax}/>
                     </div>
