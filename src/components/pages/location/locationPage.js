@@ -32,21 +32,33 @@ class LocationPage extends React.Component {
 
         var kommuneNavn;
         var kommuneNr;
+        var kommuneNrData;
 
-        if(this.state.postalCode === null){
-            kommuneNavn = "OSLO";
-            kommuneNr = "0301";
-        }
         let postalCode = this.state.postalCode;
+
+        //Viser oslo som default
+        if(!postalCode){
+            postalCode = "0301";
+        }
+
         this.state.postalCodes.data.forEach(function(postNummerData) {
             if(postNummerData[0] === postalCode) {
                 kommuneNavn = postNummerData[3];
                 kommuneNr = postNummerData[2];
-            }else{
-                kommuneNavn = "OSLO";
-                kommuneNr = "0301";
             }
         });
+
+        this.state.kommuneCodes.data.forEach(function(kommuneNummerData) {
+            if(kommuneNummerData[0] === kommuneNr) {
+                kommuneNrData = kommuneNummerData[0];
+            }
+        });
+
+        //Hvis ikke kommunen ligger i datafilen, vis oslo
+        if(!kommuneNrData){
+            kommuneNavn = "OSLO";
+            kommuneNr = "0301";
+        }
 
         var question1 = this.getValueByPosition(2, kommuneNr);
         var question2 = this.getValueByPosition(3, kommuneNr);
@@ -61,7 +73,7 @@ class LocationPage extends React.Component {
                 questions: [
                     {
                         //Placeholder stuff
-                        question: 'Hva tror er husholdningers gjennomsnittlig inntekt i din kommune?',
+                        question: 'Hva er husholdningers gjennomsnittlig inntekt i din kommune?',
                         correctAnswer: question1,
                         userAnswer: null,
                         region: kommuneNavn,
