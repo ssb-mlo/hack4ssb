@@ -28,12 +28,12 @@ class FigureList extends React.Component {
 
         let selectedStyle = {
             fill: 'white',
-            strokeWidth: 1,
+            strokeWidth: 0.5,
             stroke: 'black'
         };
         let unSelectedStyle = {
             fill: 'black',
-            strokeWidth: 1,
+            strokeWidth: 0.5,
             stroke: 'black'
         };
 
@@ -41,14 +41,8 @@ class FigureList extends React.Component {
         for (let i = 1; i <= this.props.count; i++) {
             figures.push(
                 <g id={'box-' + i} className={'class'}>
-                    {/*                    <svg width="55" height="55" style={i > this.props.selected ? selectedStyle : unSelectedStyle}>
-                        <rect width="50" height="50" className={'testBox'}/>
-                        Sorry, your browser does not support inline SVG.
-                    </svg>*/}
-                    <svg width={70} height={70}>
+                    <svg className={"gulrotBilde"} viewBox={'0 0 100 100'}>
                         <path
-                            width={50}
-                            height={50}
                             style={i > this.props.selected ? selectedStyle : unSelectedStyle}
                             d={"M54.3353081,11.6657c-0.2977982-1.7002001-3.2206993-2.3066998-8.7030983-1.8095999\n" +
                             "\tc1.0585976-1.9668002,2.3485985-4.9190001,2.2245979-6.7920003c-0.0858994-1.2930001-0.7411995-1.9121001-1.2773972-2.2051001\n" +
@@ -118,7 +112,7 @@ class SliderComponent extends React.PureComponent {
             <div className={'container'}>
                 <div className={'col'}>
                     <div>
-                        <h2>Hvor mange gulrøtter tror du naboene dine spiste i august?</h2>
+                        <h3>Hvor stor andel av innbyggere i din kommune spise grønnsaker hver dag?</h3>
                         <Slider className={'gulrotSlider mx-auto'}
                                 min={sliderMin}
                                 max={sliderMax}
@@ -130,6 +124,11 @@ class SliderComponent extends React.PureComponent {
                         <div className={'figurListe mx-auto'}><
                             FigureList selected={this.state.number} count={sliderMax}/>
                         </div>
+                    </div>
+                </div>
+                <div className={'container'}>
+                    <div className={'col'}>
+                        <button className={'mx-auto svarknapp btn btn-lg btn-primary'}>Besvar</button>
                     </div>
                 </div>
             </div>

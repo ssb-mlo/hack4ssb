@@ -118,4 +118,11 @@ body {
   max-width: 800px;
 }
 
+.gulrotBilde {
+  max-width: 60px;
+  max-height: 70px;
+}
 
+.svarknapp {
+  display: block;
+}
